@@ -1,0 +1,42 @@
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+ package="com.example.micmuter">
+
+ <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+ <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+ <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+ <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+
+ <application
+  android:label="Mic Muter"
+  android:theme="@style/Theme.MicMuter">
+
+  <activity android:name=".MainActivity">
+   <intent-filter>
+    <action android:name="android.intent.action.MAIN"/>
+    <category android:name="android.intent.category.LAUNCHER"/>
+   </intent-filter>
+  </activity>
+
+  <service
+   android:name=".MicMonitorService"
+   android:foregroundServiceType="microphone"
+   android:exported="false"/>
+
+  <service
+   android:name=".MicTileService"
+   android:permission="android.permission.BIND_QUICK_SETTINGS_TILE"
+   android:exported="true">
+   <intent-filter>
+    <action android:name="android.service.quicksettings.action.QS_TILE"/>
+   </intent-filter>
+  </service>
+
+  <receiver android:name=".BootReceiver" android:exported="true">
+   <intent-filter>
+    <action android:name="android.intent.action.BOOT_COMPLETED"/>
+   </intent-filter>
+  </receiver>
+
+ </application>
+</manifest>
